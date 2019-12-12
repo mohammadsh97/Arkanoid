@@ -126,8 +126,13 @@ public class GameView extends View {
                         state = State.GAME_OVER;
                     }
                 }
-                if (score == WinScore)
+                if (score == WinScore) {
                     canvas.drawText("YOU WIN!", getWidth / 2, getHeight / 2, pMessage);
+                    lives++;
+                    score = 0;
+                    state = State.GET_READY;
+                    startGame();
+                }
                 break;
             case GAME_OVER:
                 if (score == WinScore)
@@ -150,8 +155,8 @@ public class GameView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (state == State.GET_READY) {
-                    ball.movX = new Random().nextInt(5) + 1;
-                    ball.movY = new Random().nextInt(5) + 1;
+                    ball.movX = 10;//new Random().nextInt(5) + 1;
+                    ball.movY = 10;//new Random().nextInt(5) + 1;
                     state = State.PLAYING;
                 } else {
                     if (state == State.PLAYING) {
