@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(getApplicationContext(), "this sensor NOT exists on this device!", Toast.LENGTH_SHORT).show();
             finish();
         }
+        super.onCreate(savedInstanceState);
         gameV = (GameView) findViewById(R.id.GameView);
         System.out.println((gameV == null) + "hello bitch");
     }
@@ -51,10 +52,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //break;
 //        if(gameV.k != 0) {
             //   System.out.println("ana hooon  "+(int)gameV.ball.gety());
-            if(y!=0)
+            if(gameV.k!=0)
                 gameV.paddle.p.setColor(Color.BLUE);
-            else
-                gameV.paddle.p.setColor(Color.RED);
+
 
             // gameV.padMov(x);
 //        }

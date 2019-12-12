@@ -69,13 +69,15 @@ public class GameView extends View {
         state = State.GET_READY;
         B = new BrickCollection(getHeight, getWidth, ROWS, COLS);
         colsn = MediaPlayer.create(getContext(), R.raw.impact);
-        paddle = new Paddle(0 /*(getWidth / 2) - 200f*/, getHeight - 50f, getWidth/*(getWidth / 2) + 200f*/, getHeight - 20f);
+        paddle = new Paddle((getWidth / 2) - 200f, getHeight - 50f, (getWidth / 2) + 200f, getHeight - 20f);
         ball = new Ball(((getWidth / 2) - 200f) + 200f, getHeight - 90f, 30);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if(k==0)
+            startGame();
         B.draw(canvas);
         paddle.draw(canvas);
         paddle.didCollide(ball);
@@ -86,7 +88,7 @@ public class GameView extends View {
         pInformation.setTextAlign(Paint.Align.LEFT);
         canvas.drawText("Scores: " + score, 50, 70, pInformation);
         ball.ballMov(getWidth, getHeight);
-
+        k=1;
 
         switch (state) {
             case GET_READY:
@@ -190,7 +192,7 @@ public class GameView extends View {
         super.onSizeChanged(width, height, oldw, oldh);
         getWidth = width;
         getHeight = height;
-        startGame();
+
     }
 
 }
