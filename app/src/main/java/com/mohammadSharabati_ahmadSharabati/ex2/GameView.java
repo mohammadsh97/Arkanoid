@@ -69,7 +69,7 @@ public class GameView extends View {
         state = State.GET_READY;
         B = new BrickCollection(getHeight, getWidth, ROWS, COLS);
         colsn = MediaPlayer.create(getContext(), R.raw.impact);
-        paddle = new Paddle((getWidth / 2) - 200f, getHeight - 50f, (getWidth / 2) + 200f, getHeight - 20f);
+        paddle = new Paddle(0 /*(getWidth / 2) - 200f*/, getHeight - 50f, getWidth/*(getWidth / 2) + 200f*/, getHeight - 20f);
         ball = new Ball(((getWidth / 2) - 200f) + 200f, getHeight - 90f, 30);
     }
 
@@ -126,9 +126,11 @@ public class GameView extends View {
                         state = State.GAME_OVER;
                     }
                 }
+                if (score == WinScore)
+                    canvas.drawText("YOU WIN!", getWidth / 2, getHeight / 2, pMessage);
                 break;
             case GAME_OVER:
-                if (B.counterColsions == WinScore)
+                if (score == WinScore)
                     canvas.drawText("YOU WIN!", getWidth / 2, getHeight / 2, pMessage);
                 else {
                     canvas.drawText("GAME OVER - You Loss!", getWidth / 2, getHeight / 2, pMessage);

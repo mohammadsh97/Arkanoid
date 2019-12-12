@@ -10,16 +10,16 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+    private static final String TAG = "" ;
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
-    private SensorEventListener proximitySensorEventListener;
-//    private GameView accelerometerSensor;
-
+    private GameView gameV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,30 +30,37 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        if (accelerometerSensor == null) // this sensor NOT exists on this device!
+        if (accelerometerSensor == null) { // this sensor NOT exists on this device!
             Toast.makeText(getApplicationContext(), "this sensor NOT exists on this device!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        gameV = (GameView) findViewById(R.id.GameView);
+        System.out.println((gameV == null) + "hello bitch");
     }
-
-    protected void onResume() {
-    super.onResume();
-        sensorManager.registerListener(this, accelerometerSensor,SensorManager.SENSOR_DELAY_NORMAL);
-    }
-    protected void onPause() {
-        super.onPause();
-        sensorManager.unregisterListener(this);
-    }
-
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        switch (event.sensor.getType()) {
-            case Sensor. TYPE_ACCELEROMETER :
-                float x = event.values[0]; // Acceleration force along the x axis
-                float y = event.values[1]; // Acceleration force along the y axis
-                float z = event.values[2]; // Acceleration force along the z axis
-                break;
-        }
+
+
+
+        float x = event.values[0]; // Acceleration force along the x axis
+        float y = event.values[1]; // Acceleration force along the y axis
+        float z = event.values[2]; // Acceleration force along the z axis
+        Log.d(TAG, "onSensorChanged: the y is\n" + y+"this is x "+x+"this is z"+z);
+        //  gameV.padMov();
+        //break;
+//        if(gameV.k != 0) {
+            //   System.out.println("ana hooon  "+(int)gameV.ball.gety());
+            if(y!=0)
+                gameV.paddle.p.setColor(Color.BLUE);
+            else
+                gameV.paddle.p.setColor(Color.RED);
+
+            // gameV.padMov(x);
+//        }
+
     }
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
