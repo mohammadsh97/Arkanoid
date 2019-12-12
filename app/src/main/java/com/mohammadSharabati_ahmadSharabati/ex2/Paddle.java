@@ -24,15 +24,15 @@ public class Paddle {
 
     public void moveRight(float w) {//to make the paddle move right
         if (this.getRight() <= w) {
-            this.right += moveRight;
-            this.left += moveRight;
+            this.right ++;//= moveRight;
+            this.left ++;//= moveRight;
         }
     }
 
     public void moveLeft() {//to make the paddle move left
-        if (this.getLeft() >= 0) {
-            this.left += moveLeft;
-            this.right += moveLeft;
+        if (this.getLeft() > 0) {
+            this.left --;//= moveLeft;
+            this.right --;//= moveLeft;
         }
     }
 

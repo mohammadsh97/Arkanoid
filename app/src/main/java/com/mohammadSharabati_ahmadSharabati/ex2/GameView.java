@@ -22,8 +22,8 @@ public class GameView extends View {
     private boolean didColide = false;
     private MediaPlayer colsn;//for the sound
     int k ;
-    private enum State {GET_READY, PLAYING, GAME_OVER};
-    private State state;
+    enum State {GET_READY, PLAYING, GAME_OVER};
+    public State state;
     private Paint pInformation, pMessage;
     Paddle paddle;
     private Ball ball;
@@ -76,8 +76,11 @@ public class GameView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(k==0)
+        if(k==0) {
             startGame();
+            k++;
+        }
+
         B.draw(canvas);
         paddle.draw(canvas);
         paddle.didCollide(ball);
@@ -99,12 +102,6 @@ public class GameView extends View {
 
                 // move the jumpingBall
                 ball.ballMov(getWidth, getHeight);
-
-                if (movePaddle == 1)
-                    paddle.moveRight(getWidth);
-                else if (movePaddle == -1)
-                    paddle.moveLeft();
-
                 if (didColide) {
                     score = B.counterColsions * 5;
                     colsn.start();
@@ -157,8 +154,8 @@ public class GameView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (state == State.GET_READY) {
-                    ball.movX = 10;//new Random().nextInt(5) + 1;
-                    ball.movY = 10;//new Random().nextInt(5) + 1;
+                    ball.movX = new Random().nextInt(3) + 1;
+                    ball.movY = new Random().nextInt(3) + 1;
                     state = State.PLAYING;
                 } else {
                     if (state == State.PLAYING) {
